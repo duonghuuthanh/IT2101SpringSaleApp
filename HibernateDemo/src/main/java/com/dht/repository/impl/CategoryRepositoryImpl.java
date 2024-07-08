@@ -6,8 +6,8 @@ package com.dht.repository.impl;
 
 import com.dht.hibernatedemo.HibernateUtils;
 import com.dht.pojo.Category;
-import jakarta.persistence.Query;
 import java.util.List;
+import javax.persistence.Query;
 import org.hibernate.Session;
 
 /**
@@ -17,9 +17,7 @@ import org.hibernate.Session;
 public class CategoryRepositoryImpl {
     public List<Category> getCates() {
         try (Session s = HibernateUtils.getFactory().openSession()) {
-//            Query q = s.createQuery("From Category", Category.class);
-            Query q = s.createNamedQuery("Category.findAll", Category.class);
-            
+            Query q = s.createQuery("From Category");
             return q.getResultList();
         }
     }

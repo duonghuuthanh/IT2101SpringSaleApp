@@ -7,11 +7,13 @@ package com.dht.hibernatedemo;
 
 import com.dht.pojo.Cart;
 import com.dht.repository.impl.CategoryRepositoryImpl;
+import com.dht.repository.impl.ProductRepositoryImpl;
 import com.dht.repository.impl.ReceiptRepositoryImpl;
 import com.dht.repository.impl.StatsRepositoryImpl;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 /**
  *
@@ -20,24 +22,21 @@ import java.util.List;
 public class HibernateDemo {
 
     public static void main(String[] args) {
-        List<Cart> carts = new ArrayList<>();
-        carts.add(new Cart(1, "iPhone 7", 2, 200l));
-        
-        ReceiptRepositoryImpl r = new ReceiptRepositoryImpl();
-        r.addReceipt(carts);
-//        StatsRepositoryImpl s = new StatsRepositoryImpl();
-//        s.statsRevenueByProduct().forEach(o -> System.out.printf("%d - %s: %d VND\n", o[0], o[1], o[2]));
+        StatsRepositoryImpl s = new StatsRepositoryImpl();
+        s.statsRevenueByPeroid(2020, "QUARTER").forEach(o -> System.out.printf("%s: %d\n", o[0], o[1]));
+//        List<Cart> carts = new ArrayList<>();
+//        carts.add(new Cart(1, "A", 2, 100l));
 //        
-//        s.statsRevenueByProduct(2020, "QUARTER").forEach(o -> System.out.printf("%d: %d VND\n", o[0], o[1]));
+//        ReceiptRepositoryImpl r = new ReceiptRepositoryImpl();
+//        r.addReceipt(carts);
+        
 //        CategoryRepositoryImpl s = new CategoryRepositoryImpl();
 //        s.getCates().forEach(c -> System.out.println(c.getName()));
-//        
-//        System.out.println("===");
 //        Map<String, String> params = new HashMap<>();
+//        params.put("q", "iPhone");
 //        params.put("page", "2");
-//        params.put("fromPrice", "30000000");
-        
-//        ProductRepositoryImpl s2 = new ProductRepositoryImpl();
-//        s2.getProducts(params).forEach(p -> System.out.printf("%s - %.1f\n", p.getName(), p.getPrice()));
+
+//        ProductRepositoryImpl s = new ProductRepositoryImpl();
+//        s.getProducts(params).forEach(p -> System.out.printf("%s - %.1f\n", p.getName(), p.getPrice()));
     }
 }

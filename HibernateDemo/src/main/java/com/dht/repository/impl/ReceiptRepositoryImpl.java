@@ -17,27 +17,26 @@ import org.hibernate.Session;
  * @author admin
  */
 public class ReceiptRepositoryImpl {
-    private UserRepositoryImpl u = new UserRepositoryImpl();
-    private ProductRepositoryImpl p = new ProductRepositoryImpl();
-    
+    private static final UserRepositoryImpl u = new UserRepositoryImpl();
+    private static final ProductRepositoryImpl pr = new ProductRepositoryImpl();
     public void addReceipt(List<Cart> carts) {
-        try (Session s = HibernateUtils.getFactory().openSession()) {
-            s.getTransaction().begin();
-            SaleOrder receipt = new SaleOrder();
-            receipt.setUserId(u.getUserById("dhthanh"));
-            receipt.setCreatedDate(new Date());
-            s.merge(receipt);
-            
-            for (var c: carts) {
-                OrderDetail d = new OrderDetail();
-                d.setQuantity(c.getQuantity());
-                d.setUnitPrice(c.getUnitPrice());
-                d.setOrderId(receipt);
-                d.setProductId(p.getProductId(c.getId()));
+        if (carts != null) {
+            try (Session s = HibernateUtils.getFactory().openSession()) {
+                SaleOrder order = new SaleOrder();
+                order.setUserId(u.getUserByUsername("dhthanh"));
+                order.setCreatedDate(new Date());
+                s.save(order);
                 
-                s.merge(d);
+                for (var c: carts) {
+                    OrderDetail d = new OrderDetail();
+                    d.setUnitPrice(c.getUnitPrice());
+                    d.setQuantity(c.getQuantity());
+                    d.setProductId(pr.getProductById(c.getId()));
+                    d.setOrderId(order);
+                    
+                    s.save(d);
+                }
             }
-            s.getTransaction().commit();
         }
     }
 }

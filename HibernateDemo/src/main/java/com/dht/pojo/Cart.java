@@ -20,6 +20,9 @@ public class Cart {
         this.quantity = quantity;
         this.unitPrice = unitPrice;
     }
+
+    public Cart() {
+    }
     
     
 

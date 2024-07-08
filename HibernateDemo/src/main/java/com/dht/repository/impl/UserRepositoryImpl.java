@@ -6,7 +6,7 @@ package com.dht.repository.impl;
 
 import com.dht.hibernatedemo.HibernateUtils;
 import com.dht.pojo.User;
-import jakarta.persistence.Query;
+import javax.persistence.Query;
 import org.hibernate.Session;
 
 /**
@@ -14,12 +14,12 @@ import org.hibernate.Session;
  * @author admin
  */
 public class UserRepositoryImpl {
-    public User getUserById(String username) {
+    public User getUserByUsername(String username) {
         try (Session s = HibernateUtils.getFactory().openSession()) {
-            Query q = s.createQuery("From User Where username=:username", User.class);
+            Query q = s.createNamedQuery("User.findByUsername");
             q.setParameter("username", username);
             
             return (User) q.getSingleResult();
         }
-    } 
+    }
 }

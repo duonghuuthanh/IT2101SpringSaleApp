@@ -25,15 +25,14 @@ import org.hibernate.service.ServiceRegistry;
  */
 public class HibernateUtils {
     private static final SessionFactory factory;
-    
     static {
         Configuration conf = new Configuration();
         Properties props = new Properties();
         props.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
-        props.put(Environment.JAKARTA_JDBC_DRIVER, "com.mysql.cj.jdbc.Driver");
-        props.put(Environment.JAKARTA_JDBC_URL, "jdbc:mysql://localhost/saledb");
-        props.put(Environment.JAKARTA_JDBC_USER, "root");
-        props.put(Environment.JAKARTA_JDBC_PASSWORD, "Admin@123");
+        props.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
+        props.put(Environment.URL, "jdbc:mysql://localhost/saledb");
+        props.put(Environment.USER, "root");
+        props.put(Environment.PASS, "Admin@123");
         props.put(Environment.SHOW_SQL, true);
         
         conf.setProperties(props);

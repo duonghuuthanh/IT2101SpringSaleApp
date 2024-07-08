@@ -6,17 +6,19 @@ package com.dht.pojo;
 
 import java.io.Serializable;
 import java.util.Set;
-import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQueries;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,6 +26,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "user")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
@@ -172,6 +175,7 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
+    @XmlTransient
     public Set<SaleOrder> getSaleOrderSet() {
         return saleOrderSet;
     }
@@ -180,6 +184,7 @@ public class User implements Serializable {
         this.saleOrderSet = saleOrderSet;
     }
 
+    @XmlTransient
     public Set<Comment> getCommentSet() {
         return commentSet;
     }
