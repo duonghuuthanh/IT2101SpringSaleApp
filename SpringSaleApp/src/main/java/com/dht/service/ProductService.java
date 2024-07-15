@@ -16,4 +16,5 @@ public interface ProductService {
     List<Product> getProducts(Map<String, String> params);
     void addOrUpdate(Product p);
     public Product getProductById(int id);
+    void deleteProduct(int id);
 }

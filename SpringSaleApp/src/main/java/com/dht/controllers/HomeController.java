@@ -43,6 +43,6 @@ public class HomeController {
         
         model.addAttribute("products", this.prodService.getProducts(params));
         
-        return "index";
+        return "home";
     }
 }

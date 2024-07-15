@@ -91,11 +91,10 @@ public class ProductRepositoryImpl implements ProductRepository {
     public void addOrUpdate(Product p) {
         Session s = this.factory.getObject().getCurrentSession();
         if (p.getId() != null) {
-            s.update(s);
+            s.update(p);
         } else {
-            s.save(s);
+            s.save(p);
         }
-
     }
 
     @Override
@@ -103,5 +102,12 @@ public class ProductRepositoryImpl implements ProductRepository {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Product.class, id);
 
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Product p = this.getProductById(id);
+        s.delete(p);
     }
 }
