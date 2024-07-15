@@ -50,13 +50,13 @@
                     <form:input path="name" type="text" class="form-control" id="name" placeholder="Tên sản phẩm..." name="name" />
                 </div>
                 <div>
-                    <label for="browser" class="form-label">Choose your browser from the list:</label>
-                    <form:input path="categoryId" class="form-control" list="browsers" name="browser" id="browser" />
-                    <datalist id="browsers">
+                    <label for="browser" class="form-label">Danh mục: </label>
+                    <select class="form-select" path="categoryId" >
                         <c:forEach items="${categories}" var="c">
                             <option value="${c.id}">${c.name}</option>
                         </c:forEach>
-                    </datalist>
+                    </select>
+                   
                 </div>
             </form:form>
         </section>
