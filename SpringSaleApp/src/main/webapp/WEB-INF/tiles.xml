@@ -17,4 +17,8 @@
         <put-attribute name="title" value="Quản trị sản phẩm" />
         <put-attribute name="content" value="/WEB-INF/pages/products.jsp" />
     </definition>
+    <definition name="stats" extends="baseLayout">
+        <put-attribute name="title" value="Thống kê doanh thu" />
+        <put-attribute name="content" value="/WEB-INF/pages/stats.jsp" />
+    </definition>
 </tiles-definitions>

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.annotation.Order;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
@@ -36,6 +37,7 @@ import org.springframework.web.servlet.view.JstlView;
     "com.dht.repository",
     "com.dht.service"
 })
+@Order(1)
 public class WebAppContextConfigs implements WebMvcConfigurer {
 
     @Override
@@ -50,16 +52,7 @@ public class WebAppContextConfigs implements WebMvcConfigurer {
         return resolver;
     }
 
-    @Bean
-    public Cloudinary cloudinary() {
-        Cloudinary cloudinary
-                = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "dxxwcby8l",
-                        "api_key", "448651448423589",
-                        "api_secret", "ftGud0r1TTqp0CGp5tjwNmkAm-A",
-                        "secure", true));
-        return cloudinary;
-    }
+    
 
     @Bean
     public MessageSource messageSource() {
