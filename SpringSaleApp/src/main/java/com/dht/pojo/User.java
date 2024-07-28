@@ -4,6 +4,8 @@
  */
 package com.dht.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -39,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByActive", query = "SELECT u FROM User u WHERE u.active = :active"),
     @NamedQuery(name = "User.findByUserRole", query = "SELECT u FROM User u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "User.findByAvatar", query = "SELECT u FROM User u WHERE u.avatar = :avatar")})
+@JsonIgnoreProperties(value = {"saleOrderSet", "commentSet"})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

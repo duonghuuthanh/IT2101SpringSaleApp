@@ -29,7 +29,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = {
     "com.dht.controllers",
     "com.dht.repository",
-    "com.dht.service"
+    "com.dht.service",
+    "com.dht.components"
 })
 @Order(2)
 public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
