@@ -38,7 +38,6 @@ public class ApiProductController {
     }
     
     @GetMapping("/products")
-    
     public ResponseEntity<List<Product>> list(@RequestParam Map<String, String> params) {
         List<Product> products = this.prodService.getProducts(params);
         
