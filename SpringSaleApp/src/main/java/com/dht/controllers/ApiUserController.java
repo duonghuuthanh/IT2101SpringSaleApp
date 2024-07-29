@@ -36,7 +36,7 @@ public class ApiUserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login/")
+    @PostMapping("/login")
     @CrossOrigin
     public ResponseEntity<String> login(@RequestBody User user) {
         if (this.userService.authUser(user.getUsername(), user.getPassword()) == true) {
@@ -49,7 +49,7 @@ public class ApiUserController {
     }
 
     
-    @PostMapping(path = "/users/", 
+    @PostMapping(path = "/users", 
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
@@ -58,7 +58,7 @@ public class ApiUserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
     
-    @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/current-user", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<User> details(Principal user) {
         User u = this.userService.getUserByUsername(user.getName());

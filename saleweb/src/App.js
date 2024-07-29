@@ -1,62 +1,46 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
+import { createContext, useReducer } from 'react';
+
+import { Container } from 'react-bootstrap';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Cart from './components/Cart';
+import Login from './components/Login';
 import Product from './components/Product';
-import APIs, { endpoints } from './configs/APIs';
+import Register from './components/Register';
+
+import Footer from './layout/Footer';
+import Header from './layout/Header';
+import MyCartReducer from './reducers/MyCartReducer';
+import MyUserReducer from './reducers/MyUserReducer';
+
+export const MyUserContext = createContext();
+export const MyDispatchContext = createContext();
+export const MyCartContext = createContext();
 
 const App = () => {
-  const [categories, setCategories] = useState([]);
-
-  const loadCates = async () => {
-    try {
-      let res = await APIs.get(endpoints['categories']);
-      setCategories(res.data);
-    } catch (ex) {
-      console.error(ex);
-    }
-  }
-
-  useEffect(() => {
-    loadCates();
-  }, []);
+  const [user, dispatch] = useReducer(MyUserReducer, null);
+  const [cartCounter, cartDispatch] = useReducer(MyCartReducer, 0);
 
   return (
-    <>
-      <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home">E-commerce Website</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Trang chủ</Nav.Link>
-   
-            <NavDropdown title="Danh mục" id="basic-nav-dropdown">
-              {categories.map(c => <NavDropdown.Item key={c.id} href="#action/3.1">{c.name}</NavDropdown.Item>)}
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-
-        <Form inline>
-          <Row>
-            <Col xs="auto">
-              <Form.Control
-                type="text"
-                placeholder="Tìm sản phẩm..."
-                className=" mr-sm-2"
-              />
-            </Col>
-            <Col xs="auto">
-              <Button type="submit">Tìm</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Container>
-    </Navbar>
-
-    <Container>
-      <Product />
-    </Container>
-    </>
+    <MyUserContext.Provider value={user}>
+      <MyDispatchContext.Provider value={dispatch}>
+        <MyCartContext.Provider value={[cartCounter, cartDispatch]}>
+          <BrowserRouter>
+            <Header />
+            <Container>
+              <Routes>
+                <Route path='/' element={<Product />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/cart' element={<Cart />} />
+              </Routes>
+            </Container>
+            <Footer />
+          </BrowserRouter>
+        </MyCartContext.Provider>
+      </MyDispatchContext.Provider>
+    </MyUserContext.Provider>
+    
   );
 }
 

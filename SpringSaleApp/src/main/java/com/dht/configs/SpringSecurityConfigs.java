@@ -57,30 +57,22 @@ public class SpringSecurityConfigs extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http)
             throws Exception {
-        http.formLogin()
-                .usernameParameter("username")
-                .passwordParameter("password");
-        http.formLogin().defaultSuccessUrl("/")
-                .failureUrl("/login?error");
+        http.formLogin().usernameParameter("username").passwordParameter("password");
+        http.formLogin().defaultSuccessUrl("/").failureUrl("/login?error");
         
         http.logout().logoutSuccessUrl("/login");
         
-        http.exceptionHandling()
-                .accessDeniedPage("/login?accessDenied");
+        http.exceptionHandling().accessDeniedPage("/login?accessDenied");
         
         http.authorizeRequests().antMatchers("/api/**").permitAll()
                 .antMatchers("/**").hasRole("ADMIN");
-//                .antMatchers("/**/add")
-//                .access("hasRole('ROLE_ADMIN')");
-//        .antMatchers("/**/pay")
-//                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+        
         http.csrf().disable();
     }
 }
